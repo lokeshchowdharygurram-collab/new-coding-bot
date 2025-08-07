@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Front-End Coding Bot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    #chat {
+      width: 100%;
+      max-width: 600px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      height: 400px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .user {
+      color: #0066cc;
+      margin: 10px 0;
+    }
+    .bot {
+      color: #28a745;
+      margin: 10px 0;
+    }
+    #inputArea {
+      display: flex;
+      width: 100%;
+      max-width: 600px;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      background: #28a745;
+      color: white;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+    code {
+      display: block;
+      background: #f8f9fa;
+      padding: 10px;
+      margin-top: 5px;
+      border-left: 3px solid #ccc;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>👨‍💻 Front-End Coding Bot</h1>
+  <div id="chat"></div>
+  <div id="inputArea">
+    <input type="text" id="userInput" placeholder="Ask about HTML, CSS, JS..." />
+    <button onclick="handleUserInput()">Send</button>
+  </div>
+
+  <script>
+    const chat = document.getElementById('chat');
+
+    function appendMessage(sender, text) {
+      const msg = document.createElement('div');
+      msg.className = sender;
+      msg.innerHTML = `<strong>${sender === 'user' ? 'You' : 'Bot'}:</strong> ${text}`;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function handleUserInput() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      if (!message) return;
+      appendMessage('user', message);
+      respondToUser(message.toLowerCase());
+      input.value = '';
+    }
+
+    function respondToUser(message) {
+      let response = '';
+
+      if (message.includes('html')) {
+        response = `
+          HTML (HyperText Markup Language) is used to structure web content.
+          Here's a sample:
+          <code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;&lt;title&gt;My Page&lt;/title&gt;&lt;/head&gt;
+  &lt;body&gt;&lt;h1&gt;Hello World&lt;/h1&gt;&lt;/body&gt;
+&lt;/html&gt;</code>`;
+      } else if (message.includes('css')) {
+        response = `
+          CSS (Cascading Style Sheets) styles your HTML.
+          Here's a sample:
+          <code>body {
+  background-color: #f0f0f0;
+  font-family: Arial;
+}</code>`;
+      } else if (message.includes('javascript') || message.includes('js')) {
+        response = `
+          JavaScript adds interactivity.
+          Example:
+          <code>document.getElementById("btn").addEventListener("click", function() {
+  alert("Hello from JS!");
+});</code>`;
+      } else {
+        response = `I can help with HTML, CSS, and JavaScript. Try asking about any of them!`;
+      }
+
+      appendMessage('bot', response);
+    }
+  </script>
+</body>
+</html>
